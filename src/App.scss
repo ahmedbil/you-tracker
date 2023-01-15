@@ -28,17 +28,21 @@
       font-size: 20px;
       color: #333;
       margin: 0;
+      overflow: auto;
+      display: flex;
+      align-items: center;
   }
   header .image-logo {
-    width: 30px;
-    vertical-align: middle;
-    margin-right: 10px;
+      float:left;
+      width: 30px;
+      vertical-align: middle;
+      margin-right: 10px;
   }
   
   header .image-mode {
       width: 20px;
       vertical-align: right;
-      margin-left: 10px;
+      margin-left: 100px;
   }
   
   header .extension-btns {
@@ -95,20 +99,23 @@
     
     header h1 {
         font-size: 20px;
-        color: #fff; /* white text color */
+        color: #fff;
         margin: 0;
+        overflow: auto;
+        display: flex;
+        align-items: center;
     }
-    
     header .image-logo {
+        float:left;
         width: 30px;
         vertical-align: middle;
         margin-right: 10px;
     }
-      
+    
     header .image-mode {
         width: 20px;
         vertical-align: right;
-        margin-left: 10px;
+        margin-left: 100px;
     }
     
     header .extension-btns {

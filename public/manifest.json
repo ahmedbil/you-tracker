@@ -19,7 +19,8 @@
   "permissions": [
     "activeTab",
     "tabs",
-    "storage"
+    "storage",
+    "identity"
   ],
   "content_scripts": [
     {
@@ -30,5 +31,9 @@
   "background": {
     "service_worker": "background.js",
     "type": "module"
+  },
+  "oauth2" : {
+    "client_id" : "401793669826-2kv6ep06vpta6it2utj141dmtab9e8vk.apps.googleusercontent.com",
+    "scopes" : ["https://www.googleapis.com/auth/youtube"]
   }
 }

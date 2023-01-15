@@ -1,3 +1,6 @@
+const API_KEY = "AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA";
+let user_signed_in = false;
+
 function setIcon(sixteen, thirtytwo, ninetysix) {
     chrome.action.setIcon({
         path: {
@@ -27,6 +30,7 @@ function changeAction(action) {
         setIcon("./icons/disabled16.png", "./icons/disabled32.png", "./icons/disabled96.png")
     }
 }
+//Gets accessToken
 // Listen for tab updates
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     // Check if the updated tab's URL starts with "https://www.youtube.com"
