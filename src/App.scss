@@ -1,0 +1,128 @@
+/* light mode css */
+  body {
+      background-color: #f1f1f1;
+      width: 100%; /* increased width for entire body */
+  }
+  
+  .container {
+      max-width: 1200px; /* set a max width for the container to prevent it from becoming too wide */
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+  
+  header {
+      background-color: #fff; /* white background for header */
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd; /* grey bottom border for header */
+  }
+  
+  header h1 {
+      font-size: 20px;
+      color: #333;
+      margin: 0;
+  }
+  
+  header img {
+      width: 40px;
+      vertical-align: middle;
+      margin-right: 10px;
+  }
+  
+  header .extension-btns {
+      display: flex;
+  }
+  
+  header .extension-btns button {
+      background: transparent;
+      border: none;
+      color: #333;
+      margin-left: 10px;
+      cursor: pointer;
+  }
+  
+  footer {
+      background-color: #fff; /* white background for footer */
+      color: #333;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+      border-top: 1px solid #ddd; /* grey top border for footer */
+  }
+  
+  footer a {
+      color: #333;
+  }
+
+.dark-mode {
+    /* dark mode css */
+    body {
+        background-color: #333; /* dark background color */
+        width: 100%; /* increased width for entire body */
+    }
+    
+    .container {
+        max-width: 1200px; /* set a max width for the container to prevent it from becoming too wide */
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    header {
+        background-color: #444; /* dark grey background for header */
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #555; /* darker grey bottom border for header */
+    }
+    
+    header h1 {
+        font-size: 20px;
+        color: #fff; /* white text color */
+        margin: 0;
+    }
+    
+    header img {
+        width: 40px;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    
+    header .extension-btns {
+        display: flex;
+    }
+    
+    header .extension-btns button {
+        background: transparent;
+        border: none;
+        color: #fff; /* white text color */
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    
+    footer {
+        background-color: #444; /* dark grey background for footer */
+        color: #fff; /* white text color */
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+        border-top: 1px solid #555; /* darker grey top border for footer */
+    }
+    
+    footer a {
+        color: #fff; /* white text color */
+    }
+    
+}
