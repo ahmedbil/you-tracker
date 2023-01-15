@@ -33,12 +33,12 @@ function App() {
       <div class="container">
       <header>
           <h1>
-              <img src={logo} alt="Extension logo"/>
+              <img class="image-logo" src={logo} alt="Extension logo"/>
               Youtracker
           </h1>
           <div class="extension-btns">
             <button id="toggle-mode-btn" onClick={switchMode}>
-              <img id="mode-img" src={light} alt="Light mode icon"/>
+              <img id="mode-img" class="image-mode" src={light} alt="Light mode icon"/>
             </button>
           </div>
       </header>

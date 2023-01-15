@@ -29,11 +29,16 @@
       color: #333;
       margin: 0;
   }
+  header .image-logo {
+    width: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
   
-  header img {
-      width: 40px;
-      vertical-align: middle;
-      margin-right: 10px;
+  header .image-mode {
+      width: 20px;
+      vertical-align: right;
+      margin-left: 10px;
   }
   
   header .extension-btns {
@@ -94,10 +99,16 @@
         margin: 0;
     }
     
-    header img {
-        width: 40px;
+    header .image-logo {
+        width: 30px;
         vertical-align: middle;
         margin-right: 10px;
+    }
+      
+    header .image-mode {
+        width: 20px;
+        vertical-align: right;
+        margin-left: 10px;
     }
     
     header .extension-btns {
