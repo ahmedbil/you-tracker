@@ -1,4 +1,3 @@
-const API_KEY = "AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA";
 let user_signed_in = false;
 
 function setIcon(sixteen, thirtytwo, ninetysix) {
