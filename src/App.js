@@ -80,7 +80,7 @@ function App() {
       <header>
           <h1>
               <img class="image-logo" src={logo} alt="Extension logo"/>
-              Youtracker
+              YouTracker
           </h1>
           <div class="extension-btns">
             <button id="toggle-mode-btn" onClick={switchMode}>
