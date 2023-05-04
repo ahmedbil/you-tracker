@@ -45,7 +45,7 @@ function YoutubeData({url, auth}) {
         let maxVideo = null;
         videoList.forEach((item) => {
             const curStat = item['statistics'][stat];
-            if (curStat > curMax) {
+            if (curStat >= curMax) {
                 curMax = curStat;
                 console.log("max");
                 maxVideo = item;
@@ -62,6 +62,7 @@ function YoutubeData({url, auth}) {
         const channelData = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&id=${channelId}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
         .then(response => response.json());
         const playlistId = channelData['items'][0]['contentDetails']['relatedPlaylists']['uploads'];
+        console.log(channelData);
 
         let nextPage = true;
         let videoIdList = [];
@@ -94,6 +95,7 @@ function YoutubeData({url, auth}) {
             .then(response => response.json());
             videosData = videosData.concat(videoInfos['items']);
         }
+        console.log(videosData);
 
         setChannelDetails(channelData);
         setVideoDetails(videosData);
@@ -115,7 +117,18 @@ function YoutubeData({url, auth}) {
 
     return (
         <div>
-          {channelDetails['items'][0]['snippet']['title']}
+            <h3>{channelDetails['items'][0]['snippet']['title']}</h3>
+            <h4>Videos Posted: {channelDetails['items'][0]['statistics']['videoCount']}</h4>
+            <h4>Total Views: {channelDetails['items'][0]['statistics']['viewCount']}</h4>
+            <h4>Subscribers : {(channelDetails['items'][0]['statistics']['hiddenSubscriberCount'] === false)? channelDetails['items'][0]['statistics']['subscriberCount'] : "Hidden"}</h4>
+            <h3> Most Liked Video:</h3>
+            <h4>{mostLikedVideo['snippet']['title']}</h4>
+            <h3> Most Commented Video:</h3>
+            <h4>{mostCommentedVideo['snippet']['title']}</h4>
+            <h3> Most Viewed Video:</h3>
+            <h4>{mostViewedVideo['snippet']['title']}</h4>
+            <h3> Most Favorite Video:</h3>
+            <h4>{mostFavoriteVideo['snippet']['title']}</h4>
         </div>
       );
 }
