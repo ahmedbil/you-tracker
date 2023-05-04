@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { BeatLoader } from "react-spinners";
+import './App.scss';
+
+
 
 
 function YoutubeData({url, auth}) {
@@ -151,11 +155,15 @@ function YoutubeData({url, auth}) {
       }, []);
     
     if (!videoDetails) {
-        return <div>Loading...</div>;
+        return(
+            <div className="loader">
+            <BeatLoader color={"#123abc"} loading={!videoDetails} />
+            </div>
+        );
     }
 
     return (
-        <div>
+       <div>
             <h3>{channelDetails['items'][0]['snippet']['title']}</h3>
             <h4>Videos Posted: {channelDetails['items'][0]['statistics']['videoCount']}</h4>
             <h4>Total Views: {channelDetails['items'][0]['statistics']['viewCount']}</h4>

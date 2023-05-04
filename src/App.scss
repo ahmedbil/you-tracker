@@ -142,5 +142,11 @@
     footer a {
         color: #fff; /* white text color */
     }
+
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     
 }
