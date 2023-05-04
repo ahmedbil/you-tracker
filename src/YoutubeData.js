@@ -22,61 +22,103 @@ function YoutubeData({url, auth}) {
         }
     }
 
-    function getMostTypeVideo(videoList, type) {
-        console.log(videoList);
-        let stat = ''
-        switch (type) {
-            case "like":
-              stat = 'likeCount' 
-              break;
-            case "comment":
-              stat = 'commentCount'
-              break;
-            case "view":
-              stat = 'viewCount'
-              break;
-            case "favorite":
-              stat = 'favoriteCount'
-              break;
-            default:
-              stat = ''
-          }
-        let curMax = 0;
-        let maxVideo = null;
+    function getMostTypeVideo(videoList) {
+        let curLikeMax = 0;
+        let curCommentMax = 0;
+        let curViewMax = 0;
+        let curFavoriteMax = 0;
+
+        let mostViewResult = {
+            'maxLikeVideo' : null,
+            'maxCommentVideo' : null,
+            'maxViewVideo' : null,
+            'maxFavoriteVideo' : null
+        }
+
         videoList.forEach((item) => {
-            const curStat = item['statistics'][stat];
-            if (curStat >= curMax) {
-                curMax = curStat;
-                console.log("max");
-                maxVideo = item;
+            const curLikeStat = item['statistics']['likeCount'];
+            const curCommentStat = item['statistics']['commentCount'];
+            const curViewStat = item['statistics']['viewCount'];
+            const curFavoriteStat = item['statistics']['favoriteCount'];
+            if (curLikeStat >= curLikeMax) {
+                curLikeMax = curLikeStat;
+                mostViewResult['maxLikeVideo'] = item;
+            }
+            if (curCommentStat >= curCommentMax) {
+                curCommentMax = curCommentStat;
+                mostViewResult['maxCommentVideo'] = item;
+            }
+            if (curViewStat >= curViewMax) {
+                curViewMax = curViewStat;
+                mostViewResult['maxViewVideo'] = item;
+            }
+            if (curFavoriteStat >= curFavoriteMax) {
+                curFavoriteMax = curFavoriteStat;
+                mostViewResult['maxFavoriteVideo'] = item;
             }
         });
-        return maxVideo;
+
+        return mostViewResult;
     }
 
     const getVideoDetails = async (videoUrl, authToken) => {
+        console.time('myProgram');
         const videoId = extractVideoId(videoUrl);
         const videoData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
         .then(response => response.json());
         const channelId = videoData.items[0].snippet.channelId;
+
+        const cacheKey = channelId;
+
+        // Check if the response is already cached
+        let cachedResponse = localStorage.getItem(cacheKey);
+      
+        // Return the cached response if available
+        if (cachedResponse) {
+          let { timestamp, data } = JSON.parse(cachedResponse);
+          const age = Date.now() - timestamp;
+            // Check if the cached response has expired 
+            if (age >= 600000) {
+            localStorage.removeItem(cacheKey);
+            } else {
+                setChannelDetails(data.channelData);
+                setVideoDetails(data.videosData);
+                setMostLikedVideo(data.mostVideoStats['maxLikeVideo']);
+                setMostCommentedVideo(data.mostVideoStats['maxCommentVideo']);
+                setMostViewedVideo(data.mostVideoStats['maxViewVideo']);
+                setMostFavoriteVideo(data.mostVideoStats['maxFavoriteVideo']);
+                return;
+            }
+        }
+
+        let data = {};
+    
         const channelData = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&id=${channelId}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
         .then(response => response.json());
         const playlistId = channelData['items'][0]['contentDetails']['relatedPlaylists']['uploads'];
-        console.log(channelData);
 
         let nextPage = true;
         let videoIdList = [];
+        let videosData = [];
         let videoListReq = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`;
 
         while (nextPage) {
             const videoList = await fetch(videoListReq).then(response => response.json());
             let data = videoList['items'];
+            let curVideoIdList = [];
             data.forEach(video => {
                 let videoId = video['contentDetails']['videoId'];
                 if (!videoIdList.includes(videoId)) {
                     videoIdList.push(videoId);
+                    curVideoIdList.push(videoId)
                 }
             });
+
+            const videoInfos = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${curVideoIdList}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
+            .then(response => response.json());
+
+            videosData = videosData.concat(videoInfos['items']);
+
             if ('nextPageToken' in videoList) {
                 nextPage = true;
                 videoListReq = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&pageToken=${videoList['nextPageToken']}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`;
@@ -85,24 +127,23 @@ function YoutubeData({url, auth}) {
                 nextPage = false;
             }
         }
+        const mostVideoStats = getMostTypeVideo(videosData);
 
-        let videosData = [];
+        data['channelData'] = channelData;
+        data['videosData'] = videosData;
+        data['mostVideoStats'] = mostVideoStats;
 
-        let videoListLength = videoIdList.length;
-
-        for (let i = 0; i < videoListLength; i += 50) {
-            const videoInfos = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${videoIdList.slice(i, i+50)}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
-            .then(response => response.json());
-            videosData = videosData.concat(videoInfos['items']);
-        }
-        console.log(videosData);
+        const timestamp = Date.now();
+        const cacheData = { timestamp, data };
+        localStorage.setItem(cacheKey, JSON.stringify(cacheData));
 
         setChannelDetails(channelData);
         setVideoDetails(videosData);
-        setMostLikedVideo(getMostTypeVideo(videosData, "like"));
-        setMostCommentedVideo(getMostTypeVideo(videosData, "comment"));
-        setMostViewedVideo(getMostTypeVideo(videosData, "view"));
-        setMostFavoriteVideo(getMostTypeVideo(videosData, "favorite"));       
+        setMostLikedVideo(mostVideoStats['maxLikeVideo']);
+        setMostCommentedVideo(mostVideoStats['maxCommentVideo']);
+        setMostViewedVideo(mostVideoStats['maxViewVideo']);
+        setMostFavoriteVideo(mostVideoStats['maxFavoriteVideo']);    
+        console.timeEnd('myProgram');   
     };
 
     
