@@ -62,7 +62,6 @@ function YoutubeData({url, auth}) {
     }
 
     const getVideoDetails = async (videoUrl, authToken) => {
-        console.time('myProgram');
         const videoId = extractVideoId(videoUrl);
         const videoData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
         .then(response => response.json());
@@ -143,7 +142,6 @@ function YoutubeData({url, auth}) {
         setMostCommentedVideo(mostVideoStats['maxCommentVideo']);
         setMostViewedVideo(mostVideoStats['maxViewVideo']);
         setMostFavoriteVideo(mostVideoStats['maxFavoriteVideo']);    
-        console.timeEnd('myProgram');   
     };
 
     
