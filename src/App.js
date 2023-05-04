@@ -1,5 +1,6 @@
 import './App.scss';
 import React, { useState, useEffect } from 'react';
+import YoutubeData from './YoutubeData';
 
 import logo from './images/youtracker-logo.png'
 import light from './images/brightness.png'
@@ -88,7 +89,7 @@ function App() {
           </div>
       </header>
       <div class="main-content">
-        <p>{url}</p>
+        <YoutubeData auth = {auth_token} url = {url}/>
       </div>
       <footer>
           <p>Copyright © 2023 Youtracker</p>
