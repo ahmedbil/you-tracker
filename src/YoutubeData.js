@@ -139,12 +139,13 @@ function YoutubeData({url, auth}) {
         const mostVideoStats = getMostTypeVideo(videosData);
 
         data['channelData'] = channelData;
-        data['videosData'] = videosData;
+        data['videosData'] = {'valid': true};
         data['mostVideoStats'] = mostVideoStats;
 
         const timestamp = Date.now();
         const cacheData = { timestamp, data };
         localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+        
 
         setChannelDetails(channelData);
         setVideoDetails(videosData);
