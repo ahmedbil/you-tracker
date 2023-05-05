@@ -7,7 +7,6 @@ const chrome = window.chrome;
 
 
 
-
 function YoutubeData({url, auth}) {
     const [videoDetails, setVideoDetails] = useState(null);
     const [channelDetails, setChannelDetails] = useState(null);
@@ -16,6 +15,7 @@ function YoutubeData({url, auth}) {
     const [mostViewedVideo, setMostViewedVideo] = useState(null);
     const [mostFavoriteVideo, setMostFavoriteVideo] = useState(null);
 
+    const apiKey = process.env.REACT_APP_API_KEY;
    
     function extractVideoId(videoUrl) {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -71,7 +71,7 @@ function YoutubeData({url, auth}) {
 
     const getVideoDetails = async (videoUrl, authToken) => {
         const videoId = extractVideoId(videoUrl);
-        const videoData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
+        const videoData = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`)
         .then(response => response.json());
         const channelId = videoData.items[0].snippet.channelId;
 
@@ -100,14 +100,14 @@ function YoutubeData({url, auth}) {
 
         let data = {};
     
-        const channelData = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&id=${channelId}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
+        const channelData = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&id=${channelId}&key=${apiKey}`)
         .then(response => response.json());
         const playlistId = channelData['items'][0]['contentDetails']['relatedPlaylists']['uploads'];
 
         let nextPage = true;
         let videoIdList = [];
         let videosData = [];
-        let videoListReq = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`;
+        let videoListReq = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${apiKey}`;
 
         while (nextPage) {
             const videoList = await fetch(videoListReq).then(response => response.json());
@@ -121,14 +121,14 @@ function YoutubeData({url, auth}) {
                 }
             });
 
-            const videoInfos = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${curVideoIdList}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`)
+            const videoInfos = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${curVideoIdList}&key=${apiKey}`)
             .then(response => response.json());
 
             videosData = videosData.concat(videoInfos['items']);
 
             if ('nextPageToken' in videoList) {
                 nextPage = true;
-                videoListReq = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&pageToken=${videoList['nextPageToken']}&key=AIzaSyBD5uwgJHyCv9NYOfXkC2JoSGYdoLjK8FA`;
+                videoListReq = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&pageToken=${videoList['nextPageToken']}&key=${apiKey}`;
 
             } else {
                 nextPage = false;
@@ -220,7 +220,7 @@ function YoutubeData({url, auth}) {
                 :
                 <div></div>
             }
-            
+
             <div class="card">
                 <div class="card-title">
                     <h2>Most Commented Video</h2>
