@@ -42,10 +42,10 @@ function YoutubeData({url, auth}) {
         }
 
         videoList.forEach((item) => {
-            const curLikeStat = item['statistics']['likeCount'];
-            const curCommentStat = item['statistics']['commentCount'];
-            const curViewStat = item['statistics']['viewCount'];
-            const curFavoriteStat = item['statistics']['favoriteCount'];
+            const curLikeStat = parseInt(item['statistics']['likeCount']);
+            const curCommentStat = parseInt(item['statistics']['commentCount']);
+            const curViewStat = parseInt(item['statistics']['viewCount']);
+            const curFavoriteStat = parseInt(item['statistics']['favoriteCount']);
             if (curLikeStat >= curLikeMax) {
                 curLikeMax = curLikeStat;
                 mostViewResult['maxLikeVideo'] = item;
@@ -63,7 +63,6 @@ function YoutubeData({url, auth}) {
                 mostViewResult['maxFavoriteVideo'] = item;
             }
         });
-
         return mostViewResult;
     }
     function playVideo(id) {
@@ -89,7 +88,6 @@ function YoutubeData({url, auth}) {
             if (age >= 600000) {
             localStorage.removeItem(cacheKey);
             } else {
-                console.log(data);
                 setChannelDetails(data.channelData);
                 setVideoDetails(data.videosData);
                 setMostLikedVideo(data.mostVideoStats['maxLikeVideo']);
