@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { BeatLoader } from "react-spinners";
 import './App.scss';
 
+const chrome = window.chrome;
+
+
 
 
 
@@ -63,6 +66,9 @@ function YoutubeData({url, auth}) {
 
         return mostViewResult;
     }
+    function playVideo(id) {
+        chrome.tabs.create({ url: 'https://www.youtube.com/watch?v=' + id });
+    }
 
     const getVideoDetails = async (videoUrl, authToken) => {
         const videoId = extractVideoId(videoUrl);
@@ -83,6 +89,7 @@ function YoutubeData({url, auth}) {
             if (age >= 600000) {
             localStorage.removeItem(cacheKey);
             } else {
+                console.log(data);
                 setChannelDetails(data.channelData);
                 setVideoDetails(data.videosData);
                 setMostLikedVideo(data.mostVideoStats['maxLikeVideo']);
@@ -205,7 +212,7 @@ function YoutubeData({url, auth}) {
             <img src={mostLikedVideo['snippet']['thumbnails']['high']['url']} alt="Placeholder Image"/>
             <div class="card-info">
                 <h2>{mostLikedVideo['snippet']['title']}</h2>
-                <a href="https://www.youtube.com" class="card-button">Watch</a>
+                <button class="card-button" id={mostLikedVideo['id']} onClick={(event) => {playVideo(event.target.id)}}>Watch</button>
             </div>
             </div>
             <div class="card">
@@ -215,7 +222,7 @@ function YoutubeData({url, auth}) {
             <img src={mostCommentedVideo['snippet']['thumbnails']['high']['url']} alt="Placeholder Image"/>
             <div class="card-info">
                 <h2>{mostCommentedVideo['snippet']['title']}</h2>
-                <a href="https://www.youtube.com" class="card-button">Watch</a>
+                <button class="card-button" id={mostCommentedVideo['id']} onClick={(event) => {playVideo(event.target.id)}}>Watch</button>
             </div>
             </div>
             <div class="card">
@@ -225,7 +232,7 @@ function YoutubeData({url, auth}) {
             <img src={mostViewedVideo['snippet']['thumbnails']['high']['url']} alt="Placeholder Image"/>
             <div class="card-info">
                 <h2>{mostViewedVideo['snippet']['title']}</h2>
-                <a href="https://www.youtube.com" class="card-button">Watch</a>
+                <button class="card-button" id={mostViewedVideo['id']} onClick={(event) => {playVideo(event.target.id)}}>Watch</button>
             </div>
             </div>
             <div class="card">
@@ -235,7 +242,7 @@ function YoutubeData({url, auth}) {
             <img src={mostFavoriteVideo['snippet']['thumbnails']['high']['url']} alt="Placeholder Image"/>
             <div class="card-info">
                 <h2>{mostFavoriteVideo['snippet']['title']}</h2>
-                <a href="https://www.youtube.com" class="card-button">Watch</a>
+                <button class="card-button" id={mostFavoriteVideo['id']} onClick={(event) => {playVideo(event.target.id)}}>Watch</button>
             </div>
             </div>
         </div>
