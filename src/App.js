@@ -17,12 +17,12 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
 
 function App() {
-  let isLightMode = true;
   const clientId = '401793669826-2kv6ep06vpta6it2utj141dmtab9e8vk.apps.googleusercontent.com';
   const scope = 'https://www.googleapis.com/auth/youtube';
   let auth_token = "";
 
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(false);
 
 
   function switchMode() {
@@ -34,7 +34,7 @@ function App() {
       document.body.classList.remove("dark-mode");
       modeImg.src = light;
     }
-    isLightMode = !isLightMode;
+    setIsLightMode(!isLightMode);
   }
 
   useEffect(() => {
@@ -63,9 +63,9 @@ function App() {
             </button>
           </div>
       </header>
-      <div class="main-content">
-        <div>Loading...</div>
-      </div>
+      <body>
+        <div>Loading Authorization...</div>
+      </body>
       <footer>
           <p>Copyright © 2023 Youtracker</p>
       </footer>
@@ -75,7 +75,6 @@ function App() {
   }
 
   return (
-    <div className="body">
       <div class="container">
       <header>
           <h1>
@@ -88,15 +87,13 @@ function App() {
             </button>
           </div>
       </header>
-      <div class="main-content">
+      <body>
         <YoutubeData auth = {auth_token} url = {url}/>
-      </div>
+      </body>
       <footer>
           <p>Copyright © 2023 Youtracker</p>
       </footer>
       </div>
-  </div>
-
   );
 }
 

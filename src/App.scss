@@ -1,16 +1,12 @@
 /* light mode css */
-  body {
-      background-color: #f1f1f1;
+  .body {
+      background-color: #f4f5f7;
       width: 100%; /* increased width for entire body */
+      color:#000
   }
   
   .container {
-      max-width: 1200px; /* set a max width for the container to prevent it from becoming too wide */
-      margin: 0 auto;
-      padding: 0 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      max-width: 100%; /* set a max width for the container to prevent it from becoming too wide */
   }
   
   header {
@@ -20,9 +16,16 @@
       text-align: center;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       border-bottom: 1px solid #ddd; /* grey bottom border for header */
   }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color:#000
+   }
   
   header h1 {
       font-size: 20px;
@@ -62,7 +65,6 @@
       color: #333;
       padding: 20px;
       text-align: center;
-      width: 100%;
       border-top: 1px solid #ddd; /* grey top border for footer */
   }
   
@@ -70,20 +72,71 @@
       color: #333;
   }
 
+  .background {
+    background-color: #fff;
+  }
+
+  .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10%;
+  }
+  .card-title {
+    text-align: center;
+  }
+  .card:hover {
+    opacity: 70%;
+    scale: 1.01;
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .card-info {
+    padding: 16px;
+  }
+  
+  .card-info h2 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .card-info p {
+    margin: 0 0 16px;
+    font-size: 16px;
+  }
+  
+  .card-button {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .card-button:hover {
+    background-color: #0069d9;
+  }
+  
+
 .dark-mode {
     /* dark mode css */
-    body {
+    .body {
         background-color: #333; /* dark background color */
         width: 100%; /* increased width for entire body */
+        color:#fff
     }
     
     .container {
-        max-width: 1200px; /* set a max width for the container to prevent it from becoming too wide */
-        margin: 0 auto;
-        padding: 0 20px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        max-width: 100%; /* set a max width for the container to prevent it from becoming too wide */
     }
     
     header {
@@ -93,7 +146,6 @@
         text-align: center;
         display: flex;
         align-items: center;
-        justify-content: space-between;
         border-bottom: 1px solid #555; /* darker grey bottom border for header */
     }
     
@@ -135,7 +187,6 @@
         color: #fff; /* white text color */
         padding: 20px;
         text-align: center;
-        width: 100%;
         border-top: 1px solid #555; /* darker grey top border for footer */
     }
     
@@ -147,6 +198,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        display: flex;
+        color:#fff
     }
-    
+
+    .card {
+        background-color: #666;
+        border: 1px solid #222;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 10%;
+      }
 }
