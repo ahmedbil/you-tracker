@@ -82,7 +82,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     overflow: hidden;
-    margin: 10%;
+    margin: 10% 10% 0% 10%;
   }
   .card-title {
     text-align: center;
@@ -125,6 +125,55 @@
   .card-button:hover {
     background-color: #0069d9;
   }
+
+  .profile-card {
+    width: 300px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .profile-image-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-name {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .profile-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .profile-stat {
+    flex: 1;
+  }
+  
+  .stat-value {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .stat-label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+  }
+  
   
 
 .dark-mode {
@@ -203,11 +252,11 @@
     }
 
     .card {
-        background-color: #666;
-        border: 1px solid #222;
+        background-color: #444;
+        border: 1px solid #666;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         border-radius: 4px;
         overflow: hidden;
-        margin: 10%;
+        margin: 10% 10% 0% 10%;
       }
 }

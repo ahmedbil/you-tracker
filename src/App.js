@@ -39,9 +39,7 @@ function App() {
 
   useEffect(() => {
     chrome.identity.getAuthToken({interactive: true }, (token) => {
-      console.log("hello" + Math.floor(Math.random() * 7));
       auth_token = token;
-      console.log(auth_token);
       if (auth_token) {
         setIsSignedIn(true);
       }

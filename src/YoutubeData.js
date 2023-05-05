@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BeatLoader } from "react-spinners";
-import { MDBCardTitle, MDBBtn, MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import './App.scss';
 
 
@@ -84,7 +83,6 @@ function YoutubeData({url, auth}) {
             if (age >= 600000) {
             localStorage.removeItem(cacheKey);
             } else {
-                console.log(data);
                 setChannelDetails(data.channelData);
                 setVideoDetails(data.videosData);
                 setMostLikedVideo(data.mostVideoStats['maxLikeVideo']);
@@ -149,6 +147,19 @@ function YoutubeData({url, auth}) {
         setMostFavoriteVideo(mostVideoStats['maxFavoriteVideo']);    
     };
 
+    function formatNumber(num) {
+        if (num >= 1000000000) {
+          return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + ' B';
+        }
+        if (num >= 1000000) {
+          return (num / 1000000).toFixed(1).replace(/\.0$/, '') + ' M';
+        }
+        if (num >= 1000) {
+          return (num / 1000).toFixed(1).replace(/\.0$/, '') + ' K';
+        }
+        return num;
+      }
+
     
 
       useEffect(() => {
@@ -166,7 +177,27 @@ function YoutubeData({url, auth}) {
     }
     return (
         <div class="body">
-            <hr className="mt-0 mb-4" />
+            <div class="profile-card">
+            <div class="profile-image-container">
+                <img src={channelDetails['items'][0]['snippet']['thumbnails']['high']['url']} alt="Profile Image" class="profile-image"/>
+            </div>
+            <h2 class="profile-name">{channelDetails['items'][0]['snippet']['title']}</h2>
+            <div class="profile-stats">
+                <div class="profile-stat">
+                <span class="stat-value">{(channelDetails['items'][0]['statistics']['hiddenSubscriberCount'] === false)? formatNumber(channelDetails['items'][0]['statistics']['subscriberCount']) : "Hidden"}</span>
+                <span class="stat-label">Subscribers</span>
+                </div>
+                <div class="profile-stat">
+                <span class="stat-value">{formatNumber(channelDetails['items'][0]['statistics']['videoCount'])}</span>
+                <span class="stat-label">Videos</span>
+                </div>
+                <div class="profile-stat">
+                <span class="stat-value">{formatNumber(channelDetails['items'][0]['statistics']['viewCount'])}</span>
+                <span class="stat-label">Views</span>
+                </div>
+            </div>
+            </div>
+
             <div class="card">
                 <div class="card-title">
                     <h2>Most Liked Video</h2>
@@ -211,60 +242,4 @@ function YoutubeData({url, auth}) {
       );
 }
 
-//<p>{mostLikedVideo['snippet']['description']}</p>
-
 export default YoutubeData;
-
-/*<img src={channelDetails['items'][0]['snippet']['thumbnails']['default']['url']}
-                href={"www.youtube.com/" + channelDetails['items'][0]['snippet']['customUrl']}/>
-            <h3>{channelDetails['items'][0]['snippet']['title']}</h3>
-            <h4>Videos Posted: {channelDetails['items'][0]['statistics']['videoCount']}</h4>
-            <h4>Total Views: {channelDetails['items'][0]['statistics']['viewCount']}</h4>
-            <h4>Subscribers : {(channelDetails['items'][0]['statistics']['hiddenSubscriberCount'] === false)? channelDetails['items'][0]['statistics']['subscriberCount'] : "Hidden"}</h4>
-            <h3> Most Liked Video:</h3>*/
-
-
-
-            /*<MDBCard>
-            <MDBCardImage src={mostLikedVideo['snippet']['thumbnails']['default']['url']} position='top' alt='...' />
-            <MDBCardBody>
-                <MDBCardTitle>{mostLikedVideo['snippet']['title']}</MDBCardTitle>
-                <MDBCardText>
-                {mostLikedVideo['snippet']['description']}
-                </MDBCardText>
-                <MDBBtn href='#'>Watch</MDBBtn>
-            </MDBCardBody>
-            </MDBCard>
-            <h3> Most Commented Video:</h3>
-            <MDBCard>
-            <MDBCardImage src={mostCommentedVideo['snippet']['thumbnails']['default']['url']} position='top' alt='...' />
-            <MDBCardBody tag="section">
-                <MDBCardTitle>{mostCommentedVideo['snippet']['title']}</MDBCardTitle>
-                <MDBCardText>
-                {mostCommentedVideo['snippet']['description']}
-                </MDBCardText>
-                <MDBBtn href='#'>Watch</MDBBtn>
-            </MDBCardBody>
-            </MDBCard>
-            <h3> Most Viewed Video:</h3>
-            <MDBCard>
-            <MDBCardImage src={mostViewedVideo['snippet']['thumbnails']['default']['url']} position='top' alt='...' />
-            <MDBCardBody>
-                <MDBCardTitle>{mostViewedVideo['snippet']['title']}</MDBCardTitle>
-                <MDBCardText>
-                {mostViewedVideo['snippet']['description']}
-                </MDBCardText>
-                <MDBBtn href='#'>Watch</MDBBtn>
-            </MDBCardBody>
-            </MDBCard>
-            <h3> Most Favorite Video:</h3>
-            <MDBCard>
-            <MDBCardImage src={mostFavoriteVideo['snippet']['thumbnails']['default']['url']} position='top' alt='...' />
-            <MDBCardBody>
-                <MDBCardTitle>{mostFavoriteVideo['snippet']['title']}</MDBCardTitle>
-                <MDBCardText>
-                {mostFavoriteVideo['snippet']['description']}
-                </MDBCardText>
-                <MDBBtn href='#'>Watch</MDBBtn>
-            </MDBCardBody>
-            </MDBCard>*/
