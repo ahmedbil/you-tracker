@@ -204,16 +204,23 @@ function YoutubeData({url, auth}) {
             </div>
             </div>
 
-            <div class="card">
-                <div class="card-title">
-                    <h2>Most Liked Video</h2>
+
+            {
+                (mostLikedVideo != null)?
+                <div class="card">
+                    <div class="card-title">
+                        <h2>Most Liked Video</h2>
+                    </div>
+                <img src={mostLikedVideo['snippet']['thumbnails']['high']['url']} alt="Placeholder Image"/>
+                <div class="card-info">
+                    <h2>{mostLikedVideo['snippet']['title']}</h2>
+                    <button class="card-button" id={mostLikedVideo['id']} onClick={(event) => {playVideo(event.target.id)}}>Watch</button>
                 </div>
-            <img src={mostLikedVideo['snippet']['thumbnails']['high']['url']} alt="Placeholder Image"/>
-            <div class="card-info">
-                <h2>{mostLikedVideo['snippet']['title']}</h2>
-                <button class="card-button" id={mostLikedVideo['id']} onClick={(event) => {playVideo(event.target.id)}}>Watch</button>
-            </div>
-            </div>
+                </div>
+                :
+                <div></div>
+            }
+            
             <div class="card">
                 <div class="card-title">
                     <h2>Most Commented Video</h2>

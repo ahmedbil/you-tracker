@@ -17,8 +17,6 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
 
 function App() {
-  const clientId = '401793669826-2kv6ep06vpta6it2utj141dmtab9e8vk.apps.googleusercontent.com';
-  const scope = 'https://www.googleapis.com/auth/youtube';
   let auth_token = "";
 
   const [isSignedIn, setIsSignedIn] = useState(false);

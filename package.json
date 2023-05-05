@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "child_process": "^1.0.2",
+    "dotenv": "^16.0.3",
     "fs": "0.0.1-security",
     "google-auth-library": "^8.7.0",
     "mdb-react-ui-kit": "^6.0.0",
