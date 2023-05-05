@@ -85,7 +85,7 @@ function YoutubeData({url, auth}) {
           let { timestamp, data } = JSON.parse(cachedResponse);
           const age = Date.now() - timestamp;
             // Check if the cached response has expired 
-            if (age >= 600000) {
+            if (age >= 1800000) {
             localStorage.removeItem(cacheKey);
             } else {
                 setChannelDetails(data.channelData);
